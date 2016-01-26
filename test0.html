@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>JSON Object Creation in JavaScript</h2>
+
+<p id="demo"></p>
+
+<script>
+var text = '{"meta": {"timestamp": 1413680665.829, "type": "IMU"}, "data": {"TimeMS": 313230, "AccY": 0.013031154870986938, "AccX": -0.15820294618606567, "AccZ": -9.863511085510254, "GyrZ": 0.01947564072906971, "GyrX": 0.0015512341633439064, "GyrY": 0.0040904320776462555}}';
+
+var obj = JSON.parse(text);
+
+var arr = [];
+
+for(var x in obj){
+  arr.push(obj[x]);
+}
+
+console.dir(arr);
+
+
+
+
+</script>
+
+</body>
+</html>

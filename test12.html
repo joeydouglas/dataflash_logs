@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>JSON Object Creation in JavaScript</h2>
+
+<p id="demo"></p>
+
+<script>
+
+//set database variables
+var server = "192.168.59.103";
+var port = "8086";
+var database = "mydb";
+
+//set tag variables that pertain to the log (uav name, uav number, flight name, flight number, etc).
+var logInfo = '{"uav": "crabshark", "flight": "test01"}';
+
+// create object from tags
+var logInfoObj = JSON.parse(logInfo);
+
+//create array and fill it w/ tags from the object so key names can be referenced in the output to Influxdb.
+var logInfoArr = []
+
+for (var property in logInfoObj) {
+  logInfoArr.push(property + "=" + logInfoObj[property]);
+}
+
+
+var text = '{"meta": {"timestamp": 1413680665.829, "type": "IMU"}, "data": {"TimeMS": 313230, "AccY": 0.013031154870986938, "AccX": -0.15820294618606567, "AccZ": -9.863511085510254, "GyrZ": 0.01947564072906971, "GyrX": 0.0015512341633439064, "GyrY": 0.0040904320776462555}}';
+
+var obj = JSON.parse(text);
+
+//var dataLength = (Object.keys(obj.data).length);
+//console.log(dataLength);
+
+var arr = []
+
+for (var property in obj.data) {
+    console.log(property + "=" + obj.data[property]);
+    arr.push(property + "=" + obj.data[property]);
+
+}
+
+document.getElementById("demo").innerHTML =
+arr.toString();
+
+var dataString = arr.toString();
+console.log("'http://" + server + ":" + port + "/write?db=" + database + "' --data-binary " + obj.meta.type + "," + logInfoArr[0] + "," + logInfoArr[1] + " " + dataString + " " + obj.meta.timestamp);
+//console.dir(obj)
+
+
+
+
+</script>
+
+</body>
+</html>

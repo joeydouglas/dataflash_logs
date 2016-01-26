@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>W3Schools Internal Note</h1>
+<div>
+<b>To:</b> <span id="to"></span><br>
+</div>
+
+<script>
+var xhr = new XMLHttpRequest();
+xhr.open("POST", "http://192.168.59.103:8086/query", true);
+xhr.onreadstatechange = function () {
+  if (this.status == 200 && this.readyState == 4) {
+    console.log('response: ' + this.responseText);
+  }
+};
+
+
+
+xhr.send("CREATE DATABASE mydb3");
+xmlDoc=xhr.responseXML;
+
+document.getElementById("to").innerHTML=
+console.log(xhr.response.XML);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>W3Schools Internal Note</h1>
+<div>
+<b>To:</b> <span id="to"></span><br>
+</div>
+
+<script>
+var xhr = new XMLHttpRequest();
+xhr.open("GET", "http://192.168.59.103:8086/query?q=SHOW DATABASES", true);
+
+xhr.send(null);
+console.log(xhr.responseText);
+
+xhr.onreadstatechange = function () {
+  if (this.status == 200 && this.readyState == 4) {
+    console.log('response: ' + xhr.response);
+  }
+};
+
+
+
+
+
+
+</script>
+
+</body>
+</html>

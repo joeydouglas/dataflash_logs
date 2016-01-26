@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Pixhawk Log Parser - File Reader</h2>
+
+<p id="head"></p>
+
+
+<input type="file" id="file" name="file"/>
+
+<script src="scripts/main.js"></script>
+<script>
+
+
+
+//set database variables
+var server = "192.168.99.100";
+var port = "8086";
+var database = "TEST01";
+
+//set tag variables that pertain to the log (uav name, uav number, flight name, flight number, etc).
+var logInfo = '{"uav": "y6", "flight": "test01"}';
+
+// create object from tags
+var logInfoObj = JSON.parse(logInfo);
+
+//create array and fill it w/ tags from the object so key names can be referenced in the output to Influxdb.
+var logInfoArr = []
+
+for (var property in logInfoObj) {
+  logInfoArr.push(property + "=" + logInfoObj[property]);
+}
+
+
+
+if (window.File && window.FileReader && window.FileList && window.Blob) {
+} else {
+  alert('The File APIs are not fully supported in this browser.');
+}
+
+
+document.getElementById('file').onchange = function(){
+
+  var file = this.files[0];
+
+  var reader = new FileReader();
+  reader.onload = function(progressEvent){
+
+
+    // By lines
+    var lines = this.result.split('\n');
+    //for(var line = 0; line < lines.length; line++){
+    for(var line = 0; line < 20000; line++){
+      //console.log(lines[line]);
+      parseUpload(lines[line]);
+      setTimeout(alert, 25);
+
+    }
+  };
+  reader.readAsText(file);
+};
+
+
+</script>
+
+</body>
+</html>
